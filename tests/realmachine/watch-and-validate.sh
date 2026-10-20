@@ -5,8 +5,8 @@
 # 标记出现前本脚本不碰 GPU；出现后它跑一次 validate 并把原始输出落盘。
 # 上限 --max-wait 秒；超时即如实记录"未等到"，不无限挂。
 set -uo pipefail
-MARKER=/home/xiciyang/deepseek_harness/inference-training/out/lt4-seed-retrospect-raw.json
-PKG=/home/xiciyang/deepseek_harness/inference-training/training-qat
+MARKER=<repo>/lt4-seed-retrospect-raw.json
+PKG=<repo>
 RUN_ID="${1:?usage: watch-and-validate.sh <runId> [maxWaitSec]}"
 MAX_WAIT="${2:-3600}"
 OUT="$PKG/out/realmachine/watch-validate-${RUN_ID}.log"
