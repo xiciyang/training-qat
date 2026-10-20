@@ -1,0 +1,43 @@
+{
+  "name": "training-qat",
+  "version": "0.1.0",
+  "description": "QAT 薄插件：语料 O1 去泄漏 → 公共单体训练循环（training-core，容器内 torchao QAT 假量化）→ 对 QAT 训练后的权重施加真实的 INT8 量化（仓库自己的 llmcompressor INT8，compressed-tensors 产出）→ serving 部署 + 双门禁 + 跨插件对账。依赖长任务 1 冻结的六个 @ai-infra/* 共享库。",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.mjs",
+  "bin": { "training-qat": "./bin/training-qat.mjs" },
+  "exports": {
+    ".": { "default": "./src/index.mjs" },
+    "./tools": { "default": "./src/tools.mjs" },
+    "./package.json": "./package.json"
+  },
+  "files": ["src", "bin", "mcp", "python", "skills", "toolchain", "manifest.yaml", "cordis.patch.yml"],
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@ai-infra/testing-core": "file:../shared/libs/testing-core",
+    "@ai-infra/data-core": "file:../shared/libs/data-core",
+    "@ai-infra/state-core": "file:../shared/libs/state-core",
+    "@ai-infra/audit-core": "file:../shared/libs/audit-core",
+    "@ai-infra/sandbox-core": "file:../shared/libs/sandbox-core",
+    "@ai-infra/training-core": "file:../shared/libs/training-core"
+  },
+  "optionalDependencies": {
+    "torch": ">=2.0.0 <3",
+    "transformers": ">=4.40.0 <6",
+    "torchao": "==0.18.0",
+    "llmcompressor": ">=0.14.0 <1",
+    "compressed-tensors": ">=0.9.0 <1",
+    "datasets": ">=2.18.0 <6"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.0.1-rc <2",
+    "cordis": ">=4.0.0-rc <5"
+  },
+  "scripts": {
+    "test": "node tests/run.mjs",
+    "test:unit": "node tests/run.mjs",
+    "test:contract": "node ../inference-contracts/checks/run-all.mjs",
+    "health": "node bin/training-qat.mjs health"
+  },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

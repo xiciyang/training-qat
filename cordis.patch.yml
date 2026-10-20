@@ -1,0 +1,12 @@
+# Bundle patch for training-qat.
+#
+# 与同侧其余插件同样的两条硬约束（本机实测踩过）：
+#   - name 必须是 npm 包名，不能写相对路径（相对路径以 PROFILE 目录为 baseUrl 解析 → 启动失败）
+#   - inject 必须显式声明；host 组合没有 preset 式的自动注入
+#
+# 只硬依赖 tools；webServer 是可选取用（headless profile 也能挂载）。
+- insert:
+    - id: training-qat
+      name: '@xiciyang/training-qat'
+      inject:
+        - tools

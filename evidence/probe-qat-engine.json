@@ -1,0 +1,106 @@
+{
+  "probe": "torchao-qat + llmcompressor-int8-convert",
+  "candidates": [
+    {
+      "label": "Int8DynamicActivationIntxWeight(int8 perAxis)",
+      "cls": "torchao.quantization.Int8DynamicActivationIntxWeightConfig",
+      "base_config": "Int8DynamicActivationIntxWeightConfig(weight_dtype=torch.int8, weight_granularity=PerAxis(axis=0), weight_mapping_type=<MappingType.SYMMETRIC: 1>, weight_scale_dtype=None, act_mapping_type=<MappingType.ASYMMETRIC: 3>, intx_packing_format='unpacked_to_int8', intx_choose_qparams_algorithm=<IntxChooseQParamsAlgorithm.AFFINE: 'affine'>, version=2)",
+      "prepare_sec": 1.0,
+      "fake_quantized_linear": 169,
+      "with_weight_fake_quantizer": 169,
+      "step_sec": [
+        8.62,
+        8.67
+      ],
+      "losses": [
+        0.478201,
+        0.198024
+      ],
+      "float_export": {
+        "ok": true,
+        "dir": "/out/qat-float-Int8DynamicActivationIntxWeightConfig",
+        "files": [
+          "config.json",
+          "generation_config.json",
+          "model.safetensors"
+        ],
+        "bytes": 1976163472
+      },
+      "ok": true
+    }
+  ],
+  "torch": "2.11.0+cu130",
+  "cuda_available": false,
+  "torchao": "0.18.0",
+  "eager_qat": {
+    "n_qat_linear_isinstance": 169,
+    "n_fakequant": 338,
+    "ok": true
+  },
+  "convert": {
+    "ran": false,
+    "source": "/out/qat-float-Int8DynamicActivationIntxWeightConfig",
+    "calib": "/out/calib.jsonl",
+    "seconds": 1.4,
+    "quantization_config": {
+      "config_groups": {
+        "group_0": {
+          "format": "int-quantized",
+          "input_activations": {
+            "actorder": null,
+            "block_structure": null,
+            "dynamic": true,
+            "group_size": null,
+            "num_bits": 8,
+            "observer": null,
+            "observer_kwargs": {},
+            "scale_dtype": null,
+            "strategy": "token",
+            "symmetric": true,
+            "type": "int",
+            "zp_dtype": null
+          },
+          "output_activations": null,
+          "targets": [
+            "Linear"
+          ],
+          "weights": {
+            "actorder": null,
+            "block_structure": null,
+            "dynamic": false,
+            "group_size": null,
+            "num_bits": 8,
+            "observer": "memoryless_minmax",
+            "observer_kwargs": {},
+            "scale_dtype": null,
+            "strategy": "channel",
+            "symmetric": true,
+            "type": "int",
+            "zp_dtype": null
+          }
+        }
+      },
+      "format": "int-quantized",
+      "global_compression_ratio": null,
+      "ignore": [
+        "lm_head"
+      ],
+      "kv_cache_scheme": null,
+      "quant_method": "compressed-tensors",
+      "quantization_status": "compressed",
+      "sparsity_config": {},
+      "transform_config": {},
+      "version": "0.19.0"
+    },
+    "scheme_string_verifyQuantOutput_style": "8bit/channel",
+    "files": [
+      "config.json",
+      "generation_config.json",
+      "model.safetensors",
+      "recipe.yaml",
+      "tokenizer.json",
+      "tokenizer_config.json"
+    ],
+    "ok": true
+  }
+}

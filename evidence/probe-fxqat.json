@@ -1,0 +1,40 @@
+{
+  "probe": "fxqat",
+  "torch": "2.11.0+cu130",
+  "engines": null,
+  "steps": [],
+  "cuda_available": false,
+  "num_threads": 20,
+  "qconfigs": {
+    "qnnpack": "QConfig(activation=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>, quant_min=0, quant_max=255, reduce_range=False){}, weight=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>, quant_min=-128, quant_max=127, dtype=torch.qint8, qscheme=torch.per_tensor_symmetric){})",
+    "onednn": "QConfig(activation=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>, quant_min=0, quant_max=255){}, weight=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver'>, quant_min=-128, quant_max=127, dtype=torch.qint8, qscheme=torch.per_channel_symmetric){})",
+    "fbgemm": "QConfig(activation=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>, quant_min=0, quant_max=255, reduce_range=True){}, weight=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver'>, quant_min=-128, quant_max=127, dtype=torch.qint8, qscheme=torch.per_channel_symmetric){})",
+    "x86": "QConfig(activation=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>, quant_min=0, quant_max=255, reduce_range=True){}, weight=functools.partial(<class 'torch.ao.quantization.fake_quantize.FusedMovingAvgObsFakeQuantize'>, observer=<class 'torch.ao.quantization.observer.MovingAveragePerChannelMinMaxObserver'>, quant_min=-128, quant_max=127, dtype=torch.qint8, qscheme=torch.per_channel_symmetric){})"
+  },
+  "load_sec": 0.3,
+  "model_class": "Qwen2ForCausalLM",
+  "params": 494032768,
+  "fx_error": "ValueError: code: co_varnames is too small",
+  "fx_traceback": "Traceback (most recent call last):\n  File \"/probe/probe-fxqat.py\", line 120, in main\n    fx_model = prepare_qat_fx(model, build_qconfig_map(), example_inputs=(ids,))\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/typing_extensions.py\", line 3004, in wrapper\n    return arg(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/ao/quantization/quantize_fx.py\", line 508, in prepare_qat_fx\n    return _prepare_fx(\n           ^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/ao/quantization/quantize_fx.py\", line 139, in _prepare_fx\n    graph_module = GraphModule(model, tracer.trace(model))\n                                      ^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/fx/_symbolic_trace.py\", line 839, in trace\n    fn, args = self.create_args_for_root(\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/fx/_symbolic_trace.py\", line 722, in create_args_for_root\n    root_fn = _patch_function(root_fn, len(args))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/fx/_symbolic_trace.py\", line 210, in _patch_function\n    new_code = CodeType(*co_args)  # type: ignore[arg-type]\n               ^^^^^^^^^^^^^^^^^^\nValueError: code: co_varnames is too small\n",
+  "eager_counts": {
+    "qat_linear": 0,
+    "quantized_linear": 0,
+    "plain_linear": 169
+  },
+  "chosen": "eager",
+  "step_sec": [
+    7.05,
+    7.62
+  ],
+  "steps_done": 2,
+  "float_export": {
+    "ok": true,
+    "dir": "/out/qat-float",
+    "files": [
+      "config.json",
+      "generation_config.json",
+      "model.safetensors"
+    ],
+    "weightsBytes": 1976500664
+  }
+}
