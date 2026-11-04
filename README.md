@@ -57,6 +57,14 @@ node tests/run.mjs
 - 回退只作用于本插件自己的 run 目录
 - 审计链可第三方复算
 
+## 作者与项目
+
+习慈羊（Ciyang Xi）· AI 解决方案架构师。
+
+- 个人站：<https://xiciyang.com>
+- 开源与论文：<https://xiciyang.com/open-source/>
+- 应用平台：<https://www.xagentlab.com>
+
 ## 许可
 
 BSD-3-Clause。见 `LICENSE`。
